@@ -23,6 +23,10 @@ run
 ```bash
   docker-compose up -d
 ```
+install Kafka-related Python packages
+```bash
+  pip install kafka-python
+```
 
 ### Disclaimer
  - https://kafka.apache.org/
