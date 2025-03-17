@@ -19,9 +19,31 @@ picture from https://howtodoinjava.com/wp-content/uploads/2023/06/Apache-Kafka-A
 &emsp;An Offset is a unique identifier for each message within a Kafka partition. It tracks the position of the consumer in the partition's log, ensuring that consumers can read messages in order. Consumers commit offsets to Kafka to mark the last successfully read message, allowing them to resume from that point after failures or restarts.
 
 ### Install Apache Kafka using Docker-compose
-run
+run (multiple node)
 ```bash
   docker-compose up -d
+```
+or (single node)
+```bash
+services:
+  broker:
+    image: apache/kafka:latest
+    container_name: broker
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://broker:9092,CONTROLLER://broker:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@broker:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
 ```
 install Kafka-related Python packages
 ```bash
