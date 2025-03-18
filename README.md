@@ -53,6 +53,7 @@ install Kafka-related Python packages
 ### Disclaimer
  - https://kafka.apache.org/
  - https://github.com/apache/kafka
+ - https://hub.docker.com/r/apache/kafka
 
 
 
